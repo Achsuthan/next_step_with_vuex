@@ -1,0 +1,18 @@
+{
+    "users":[
+        {
+            "_id": 1,
+            "name": "Achsuthan",
+            "email": "1@1.com",
+            "password": "pass@123",
+            "favouriteMovies": [1]
+        },
+        {
+            "_id": 2,
+            "name": "Mahendran",
+            "email": "2@1.com",
+            "password": "pass@123",
+            "favouriteMoives": []
+        }
+    ]
+}
