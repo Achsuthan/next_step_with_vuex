@@ -5,27 +5,8 @@
       <div>
         <b-card-group deck>
           <b-row>
-            <template v-for="i in 30">
-              <b-col :key="i" cols="4">
-                <b-card
-                  class="mb-2"
-                  title="Title"
-                  img-src="https://picsum.photos/300/300/?image=41"
-                  img-alt="Image"
-                  img-top
-                >
-                  <div class="h2 mb-0">
-                    <b-icon-heart></b-icon-heart>
-                  </div>
-                  <div class="h2 mb-0">
-                    <b-icon-heart-fill></b-icon-heart-fill>
-                  </div>
-                  <b-card-text>
-                    This is a wider card with supporting text below as a natural lead-in to additional content.
-                    This content is a little bit longer.
-                  </b-card-text>
-                </b-card>
-              </b-col>
+            <template v-for="(item, index) in movies">
+              <singleMovie :key="index" :item="item" />
             </template>
           </b-row>
         </b-card-group>
@@ -35,7 +16,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "MoviesList"
+  name: "MoviesList",
+  components: {
+    singleMovie: () => import("../components/SingleMovie")
+  },
+  computed: {
+    ...mapState({
+      movies: state => state.movies.movies
+    })
+  },
+  created() {
+    this.$store.dispatch("movies/getAllMoves");
+  }
 };
 </script>

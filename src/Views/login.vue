@@ -2,8 +2,8 @@
   <b-container class="bv-example-row">
     <div>
       <b-card class="text-center">
-          <h3>Login</h3>
-        <b-form @submit="onSubmit">
+        <h3>Login</h3>
+        <b-form @submit="loginFn">
           <b-form-group id="input-group-1" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -40,13 +41,36 @@ export default {
       password: ""
     };
   },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
+  },
+  watch: {
+    user: {
+      handler(val) {
+        if (val) {
+          console.log("user ", val);
+          this.$router.push("/movies");
+        }
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   methods: {
-    onSubmit(evt) {
+    loginFn(evt) {
       evt.preventDefault();
-      if(this.email && this.password){
-          console.log("Can call API")
+      if (this.email && this.password) {
+        console.log("Can call API");
+        this.$store.dispatch("user/LoginUser", {
+          email: this.email,
+          password: this.password
+        });
+        this.email = ""
+        this.password = ""
       }
-    },
+    }
   }
 };
 </script>

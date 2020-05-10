@@ -1,18 +1,27 @@
+import MovieService from '../../Services/movies.service'
 let Movies = {
-    // namespaced: true,
+    namespaced: true,
     state: {
         movies: []
     },
     mutations: {
-        SET_MOVIES(state, payload) {
-            console.log("set movies")
-            state.movies = payload
+        GET_ALL_MOVIES(state) {
+            MovieService.getAllMovies().then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    state.movies = res.data
+                    console.log("state", state.movies)
+                }
+                else {
+                    state.movies = []
+                }
+            })
         }
     },
     actions: {
-        setMovies({ commit }, payload) {
-            commit("SET_MOVIES", payload)
-        }
+        getAllMoves({ commit }) {
+            commit("GET_ALL_MOVIES")
+        },
     },
     getters: {
     }

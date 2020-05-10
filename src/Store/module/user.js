@@ -1,19 +1,24 @@
+import UserService from '../../Services/user.service'
 let User = {
-    // namespaced: true,
+    namespaced: true,
     state: {
         user: null
     },
     mutations: {
-        SET_USER(state, payload) {
-            state.user = payload
-        }
+        LOGIN_USER(state, payload) {
+            UserService.userLogin(payload).then(res => {
+                if (res.status === 200) {
+                    state.user = res.content
+                }
+                else {
+                    state.user = null
+                }
+            })
+        },
     },
     actions: {
-        setUser({ commit }, payload) {
-            commit("SET_USER", payload)
-        },
-        setMovies({ commit }, payload) {
-            commit("SET_USER", payload)
+        LoginUser({ commit }, payload) {
+            commit("LOGIN_USER", payload)
         }
     },
     getters: {
